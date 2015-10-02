@@ -7,9 +7,39 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <vector>
+
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    vector<int> vec;
+    int number;
+    // Open the file to read numbers
+    ifstream file_read;
+    file_read.open("nums.txt");
+    while (file_read >> number) {
+        vec.push_back(number);
+    }
+    file_read.close();
+    // Insertion Sort
+    for (int i = 1; i < vec.size(); i++) {
+        int key = vec[i];
+        int j = i - 1;
+        while (j >= 0 && vec[j] > key) {
+            vec[j+1] = vec[j];
+            j = j - 1;
+        }
+        vec[j+1] = key;
+    }
+    // Open file to write numbers in sorted order
+    ofstream file_write;
+    file_write.open("nums_sorted.txt");
+    for (int i = 0; i < vec.size(); i++) {
+        file_write << vec[i];
+        file_write << "\n";
+    }
+    file_write.close();
+    
     return 0;
 }
