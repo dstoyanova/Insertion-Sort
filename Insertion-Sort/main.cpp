@@ -12,6 +12,18 @@
 
 using namespace std;
 
+void InsertionSort(vector<int>& vec) {
+    for (int i = 1; i < vec.size(); i++) {
+        int key = vec[i];
+        int j = i - 1;
+        while (j >= 0 && vec[j] > key) {
+            vec[j+1] = vec[j];
+            j = j - 1;
+        }
+        vec[j+1] = key;
+    }
+}
+
 int main(int argc, const char * argv[]) {
     vector<int> vec;
     int number;
@@ -23,15 +35,7 @@ int main(int argc, const char * argv[]) {
     }
     file_read.close();
     // Insertion Sort
-    for (int i = 1; i < vec.size(); i++) {
-        int key = vec[i];
-        int j = i - 1;
-        while (j >= 0 && vec[j] > key) {
-            vec[j+1] = vec[j];
-            j = j - 1;
-        }
-        vec[j+1] = key;
-    }
+    InsertionSort(vec);
     // Open file to write numbers in sorted order
     ofstream file_write;
     file_write.open("nums_sorted.txt");
